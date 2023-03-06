@@ -1,17 +1,7 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
-let ConnectToMysql = async () => {
-    const mysqlConfig = require('../config/default').mysql;
-    return new Promise((resolve, reject) => {
-        let conn = mysql.createConnection(mysqlConfig);
-        conn.connect(err => {
-            err ? reject(err) : resolve(conn);
-        })
-    });
-};
+const mysqlConfig = require('./config/default').mysql;
 
+const connection = mysql.createPool(mysqlConfig);
 
-
-module.exports = {
-    ConnectToMysql: ConnectToMysql
-}
+module.exports = connection;
